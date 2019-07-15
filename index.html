@@ -1,0 +1,413 @@
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="Lexx">
+  <meta name="generator" content="Jekyll v3.8.5">
+  <title>Camera Map</title>
+  
+
+  <!-- Vue-->
+  <script src="https://npmcdn.com/vue/dist/vue.js"></script>
+  <!-- Bootstrap JS CSS-->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+ 
+ <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+<!--	<script>
+    	$(document).on("mobileinit", function () {
+        	$.mobile.hashListeningEnabled = true;
+        	$.mobile.pushStateEnabled = true;
+    	});
+	</script> -->
+  
+</head>
+<body>
+<!-- Wish-- search in navbar -->
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <a class="navbar-brand" href="#">CameraSeek</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+        <div class="dropdown-menu" aria-labelledby="dropdown01">
+          <a class="dropdown-item" href="#">Instructions</a>
+          <a class="dropdown-item" href="#">Cameras Nearby</a>
+          <a class="dropdown-item" href="#">List only</a>
+        </div>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+
+
+<main role="main" class="container">
+	<div class="ui-field-contain"> 
+		<select id="town" name="select-native-1" class="select-css" id="select-native-1"  onChange="list_page();">
+        	<option value="0">Choose a Borough</option>
+					<option id="loading_selection" value="0">Loading Boroughs...</option>
+					<option v-for="item in items" v-bind:value="item['fields']['Latitude, Longitude, Zoom']">{{ item['fields']['Name'] }}</option>
+    	</select>
+	</div>
+
+
+
+
+
+
+
+
+
+</main>
+
+
+
+
+
+<div data-role="page" id="filter">
+	<div data-role="header" data-position="fixed" >
+		<h1>Camera Finder</h1>
+		<a href="#about" class="ui-btn ui-icon-info ui-btn-icon-notext ui-corner-all ui-btn-right"  data-transition="slide"></a>
+	</div>
+	<div data-role="content" class="content">
+		<div class="ui-field-contain"> 
+			<select id="town" name="select-native-1" class="select-css" id="select-native-1"  onChange="list_page();">
+        		<option value="0">Choose a Borough</option>
+						<option id="loading_selection" value="0">Loading Boroughs...</option>
+						<option v-for="item in items" v-bind:value="item['fields']['Latitude, Longitude, Zoom']">{{ item['fields']['Name'] }}</option>
+    		</select>
+		</div>
+
+
+		<fieldset id="categories" data-role="controlgroup">
+			<p style="margin-top:15px;">Check the type(s) of camera you are looking for:</p>
+		</fieldset>
+
+		<fieldset data-role="controlgroup" data-type="horizontal">
+    		<input type="radio" name="radio-choice-h-2" id="radio-choice-h-2a" value="list" checked="checked">
+    		<label for="radio-choice-h-2a">List View</label>
+    		<input type="radio" name="radio-choice-h-2" id="radio-choice-h-2b" value="map">
+    		<label for="radio-choice-h-2b">Map View</label>
+		</fieldset>
+
+		<a href="javascript:results_page();" data-role="button" style="background-color: #F28C0F; color: #6b533e; text-shadow: 0 0px 0 #F28C0F;">Find Cameras</a>
+
+	</div>
+</div>
+
+
+
+<div data-role="page" id="about">
+	<div data-role="header" data-position="fixed">
+		<h1>About</h1>
+		<a href="#" data-rel="back" data-transition="slide" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-arrow-l ui-btn-icon-notext"></a>
+	</div>
+	<div data-role="content" class="content">
+		<p> ABOUT PAGE CONTENT
+	</div>
+</div>
+
+
+
+<div data-role="page" id="details">
+	<div data-role="header" data-position="fixed">
+		<h1>Details</h1>
+		<a href="#" data-rel="back" data-transition="slide" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-arrow-l ui-btn-icon-notext"></a>
+	</div>
+	<div data-role="content" class="content">
+		<div id="detail" v-for="" v-if="">
+		</div>
+	</div>
+</div>
+
+
+
+<div data-role="page" id="results">
+	<div data-role="header" data-position="fixed">
+		<h1>  Result: <i> found. click the arrow below for building details. </i></h1>
+		<a href="#filter" data-transition="slide" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-home ui-btn-icon-notext"></a>
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#results">List</a></li>
+				<li><a href="javascript:void('');" onClick="size_map();$.mobile.changePage($('#map-page'), { transition: 'none'});">Map</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="">
+			
+	</div>
+		<div data-role="content" class="content">
+				<h1 id="town_name"></h1>
+				<ul id="org_list" data-role="listview" data-inset="true">
+				</ul>
+		</div>
+		<ul id="org_geo_list" style="display:none;"></ul>
+</div>
+
+
+
+<div data-role="page" id="map-page">
+	<div data-role="header" data-position="fixed">
+		<h1>Results mapped</h1>
+		<a href="#filter" data-transition="slide" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-home ui-btn-icon-notext"></a>
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#results" data-transition="none" >List</a></li>
+				<li><a href="#map-page">Map</a></li>
+			</ul>
+		</div>
+	</div>
+		<div>
+			<div id="map" style= "height: 100%; width: 100%; position: inherit; overflow: hidden;"></div>
+		</div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js"></script>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3-tyZ0UkYztbB4D4WjmoU57gSd2ykGco"></script>
+
+<script type="text/javascript">
+	var app_id = "appnkricUWdfHJvbp";
+	var app_key = "keyv7ZopWtGY1rwVv";
+	var cat_names = [["NYCHA","NYCHA"],["Commercial","Commercial"]];
+	var categories = "";
+	// var ages = "";
+	var work = 0;
+	function load_first() {
+			cat_names.forEach((cat, index) => {
+					$("#categories").html( $("#categories").html() + "<input type=\"checkbox\" name=\"checkbox-v-"+cat[0]+"\" id=\"checkbox-v-"+cat[0]+"\" onChange=\"list_page();\" checked=\"checked\">");
+					$("#categories").html( $("#categories").html() + "<label for=\"checkbox-v-"+cat[0]+"\">"+cat[1]+"</label>");
+			});
+			$( '#categories' ).enhanceWithin();
+			load_api_data('#filter',0);
+	}
+	load_first();
+	function load_api_data(target,mode=3,id='') {
+		work = 1;
+		if (mode == 0) {
+			apicall = "https://api.airtable.com/v0/"+app_id+"/Locations/?sort[0][field]=Name&sort[0][direction]=asc";
+		} else if (mode == 1) {
+			apicall = "https://api.airtable.com/v0/"+app_id+"/Categories/?sort[0][field]=Name&sort[0][direction]=asc";
+		} else if (mode == 2) {
+			apicall = "https://api.airtable.com/v0/"+app_id+"/" + $('#town').find(":selected").text() + "/?filterByFormula=AND(OR("+categories+"))&sort[0][field]=Name&sort[0][direction]=asc";
+		} else if (mode == 3) {
+			apicall = "https://api.airtable.com/v0/"+app_id+"/" + $('#town').find(":selected").text() + "/?filterByFormula=(RECORD_ID()=\""+id+"\")";
+		}
+		var app = new Vue({
+              el: target,
+              data: {
+                  items: []
+              },
+              mounted: function(){
+                 this.loadItems();
+              },
+              methods: {
+                  loadItems: function(){
+                      // Init variables
+                      var self = this
+                      this.items = []
+					axios.get(
+													 apicall,
+                          {
+                              headers: { Authorization: "Bearer "+ app_key }
+                          }
+                      ).then(function(response){
+                          self.items = response.data.records;
+													work = 0;
+													if (mode == 0) {	$('#loading_selection').remove() }
+                      }).catch(function(error){
+                          console.log(error)
+                      })
+                  }
+              }
+          });
+	}
+	function results_page() {
+		if ($('#town').find(":selected").val() == 0) {
+			alert('You must choose a location.');
+		} else if ($('#checkbox-v-NYCHA').is(":checked") || $('#checkbox-v-Commercial').is(":checked")) {
+			next_page_1()
+   		} else {
+			alert('You must choose at least one type of service.')
+		}
+	}
+	function next_page_1() {
+		if (work == 0) {
+			if ($('input[name=radio-choice-h-2]:checked', '#filter').val() == "map") {
+					size_map();
+					$.mobile.changePage($('#map-page'), { transition: 'slide'});
+			} else {
+					$.mobile.changePage($('#results'), { transition: 'slide'});
+			}
+		} else {
+			if ($.mobile.loading().is(':hidden')) {
+				$.mobile.loading("show");
+			}
+			setTimeout(function () {
+        next_page_1()
+    	}, 100);
+		}
+	}
+	function list_page() {
+		if ($('#town').find(":selected").val() != 0 ) {
+				$("#org_list").html("");
+				$("#org_geo_list").html("<li id=\"ge0_points\" v-for=\"item in items\">{{ item['id'] }},{{ item['fields']['Name'] }},{{ item['fields']['Latitude'] }},{{ item['fields']['Longitude'] }}</li>");
+				categories = "";
+				cat_names.forEach((cat, index) => {
+					if ($('#checkbox-v-'+cat[0]).is(":checked")){
+						$("#org_list").html( $("#org_list").html() + "<li data-role=\"list-divider\">"+cat[1]+"</li>")
+						// $("#org_list").html( $("#org_list").html() + "<li data-role=\"list-divider\">"+"item['fields']['County']"+"</li>")
+						$("#org_list").html( $("#org_list").html() + "<li v-for=\"item in items\" v-if=\"item['fields']['Category'] == '"+cat[1]+"'\"><a href=\"javascript:void('')\" v-bind:id=\"item['id']\" onClick=\"details_page(this.id);\">{{ item['fields']['Name'] }}<p>Managed by: {{ item['fields']['manager'] }}; Number of Cameras: {{ item['fields']['no_cameras']  }}</p></a></li>")
+						
+						if (categories != "") {
+							categories = categories+",";
+						}
+						categories = categories+"FIND(\""+cat[1]+"\",{Category})";
+					}
+				});
+				$('#town_name').html($('#town').find(":selected").text());
+		    load_api_data('#results',2);
+				geo_data = $('#town').find(":selected").val().split(',').map(Number);
+				lat = geo_data[0];
+				lon = geo_data[1];
+				zoomin = geo_data[2];
+	  	} else {
+				return false;
+			}
+		}
+		function details_page(id) {
+      	$("#detail").attr("v-for", "item in items");
+      	$("#detail").html("");
+      	$("#detail").html($("#detail").html() + "<h3>{{ item['fields']['Name'] }}</h3>")
+      	$("#detail").html($("#detail").html() + "<h4>{{ item['fields']['Category'] }}</h4>");
+      	$("#detail").html($("#detail").html() + "<p><b>Managed by:</b> {{ item['fields']['manager']}} &nbsp;&nbsp; </p>");
+		$("#detail").html($("#detail").html() + "<p><b>Phone:</b> <a v-bind:href=\"'tel:'+item['fields']['Phone']\" target=\"_blank\">{{ item['fields']['Phone'] }}</p>");
+		$("#detail").html($("#detail").html() + "<p><b>Camera Type:</b> {{ item['fields']['Camera type']}} &nbsp;&nbsp; <b>Number of Cameras:</b> {{ item['fields']['no_cameras']}} </p>");
+		$("#detail").html($("#detail").html() + "<p><b>Email:</b> <a v-bind:href=\"'mailto:'+item['fields']['Email']\" target=\"_blank\">{{ item['fields']['Email'] }}</a></p>");
+      	$("#detail").html($("#detail").html() + "<p><b>Website:</b> <a v-bind:href=\"item['fields']['Website']\" target=\"_blank\">{{ item['fields']['Website'] }}</a></p>");
+      	$("#detail").html($("#detail").html() + "<p><b>Address:</b> <a v-bind:href=\"'https://www.google.com/maps/place/'+item['fields']['Address']  +'+'+item['fields']['County'] \" target=\"_blank\">{{ item['fields']['Address'] }}</a> <b>Building no.</b> {{ item['fields']['building']}} <b>Stairhall: </b> {{ item['fields']['Stairhall']}}</p>");
+		$("#detail").html($("#detail").html() + "<p><b>Description:</b> {{ item['fields']['Description'] }}</p>");
+				$("#detail").html($("#detail").html() + "<p><b>Valid As Of:</b> {{ item['fields']['createdTime'] }}</p>");
+			load_api_data('#details',3,id);
+			next_page_2();
+    }
+		function next_page_2() {
+			if (work == 0) {
+				$.mobile.changePage($('#details'), { transition: 'slide'})
+			} else {
+				if ($.mobile.loading().is(':hidden')) {
+					$.mobile.loading("show");
+				}
+				setTimeout(function () {
+					next_page_2()
+				}, 100);
+			}
+		}
+		//list_page();
+		// map items- currently broken!!    https://developers.google.com/maps/documentation/javascript/adding-a-google-map
+		// map items- new feature- geolocation!!    https://developers.google.com/maps/documentation/javascript/geolocation
+		var markers = [];
+		function initMap(lat,lon,zoomin) {
+			var infobx = {lat: lat, lng: lon};
+			var map = new google.maps.Map(document.getElementById('map'), {
+		        zoom: 12,
+		        center: infobx
+		      });
+			i = 0;
+			$('#org_geo_list li').each(function(){
+				//alert($(this).text());
+				pin_data = $(this).text().split(',');
+				marker = new google.maps.Marker({
+					position: {lat: Number(pin_data[2]), lng: Number(pin_data[3])},
+					map: map,
+					title:  '<p><b>Description:</b> {{ item[\'fields\'][\'Name\'] }}</p>'
+				});
+				// var markerCluster = new MarkerCluster(map, markers, {imagepath: 'https://fontawesome.com/icons/video?style=solid'});
+				var infowindow = new google.maps.InfoWindow({
+					content: "<div id= \'mapstyle\'><h2>"+pin_data[1]+"</h2><div id=\'mapbox\'><a href=\"javascript:details_page(\'"+pin_data[0]+"\')\">view details</a></span></div>"
+				});
+				//creates an infowindow 'key' in the marker.
+				marker.infowindow = infowindow;
+				//finally call the explicit infowindow object
+				marker.addListener('click', function() {
+					// hideAllInfoWindows(map);
+					return this.infowindow.open(map, this);
+				});
+				markers.push(marker);
+				++i;
+			});
+			google.maps.event.addListener(map, 'click', function() {
+			    if (infowindow) {
+			        infowindow.close();
+			    }
+			});
+		}
+		function hideAllInfoWindows(map) {
+		   markers.forEach(function(marker) {
+		     marker.infowindow.close(map, marker);
+		  });
+		}
+		function size_map() {
+			initMap(lat,lon,zoomin);
+			$('#map-page').height( window.innerHeight - 81 +  'px');
+		}
+		$("div[data-role=page]").bind("pagebeforeshow", function (e, data) {
+		  $.mobile.silentScroll(0);
+		  $.mobile.changePage.defaults.transition = 'slide'; // reset default here
+		})
+</script>
+
+
+
+</body>
+  <!-- Vue-->
+  <script src="https://npmcdn.com/vue/dist/vue.js"></script>
+  <!-- Bootstrap JS CSS-->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+</html>
