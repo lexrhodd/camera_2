@@ -27,7 +27,6 @@
         -ms-user-select: none;
         user-select: none;
       }
-
       @media (min-width: 768px) {
         .bd-placeholder-img-lg {
           font-size: 3.5rem;
@@ -56,20 +55,22 @@
       <li class="nav-item active">
         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
       </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onChange="list_page();">Choose Borough</a>
+        <div class="dropdown-menu" aria-labelledby="dropdown01">
+          <a class="dropdown-item" href="#" v-for="item in items" v-bind:value="item['fields']['Latitude, Longitude, Zoom']">{{ item['fields']['Name'] }}</a>
+          <a class="dropdown-item" href="#">Cameras Nearby</a>
+          <a class="dropdown-item" href="#">List only</a>
+        </div>
+      </li>
+
       <li class="nav-item">
         <a class="nav-link" href="#">Link</a>
       </li>
       <li class="nav-item">
         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
       </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-        <div class="dropdown-menu" aria-labelledby="dropdown01">
-          <a class="dropdown-item" href="#">Instructions</a>
-          <a class="dropdown-item" href="#">Cameras Nearby</a>
-          <a class="dropdown-item" href="#">List only</a>
-        </div>
-      </li>
+
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
@@ -82,7 +83,7 @@
 <main role="main" class="container">
 	<div class="ui-field-contain"> 
 		<select id="town" name="select-native-1" class="select-css" id="select-native-1"  onChange="list_page();">
-        	<option value="0">Choose a Borough</option>
+        			<option value="0">Choose a Borough</option>
 					<option id="loading_selection" value="0">Loading Boroughs...</option>
 					<option v-for="item in items" v-bind:value="item['fields']['Latitude, Longitude, Zoom']">{{ item['fields']['Name'] }}</option>
     	</select>
