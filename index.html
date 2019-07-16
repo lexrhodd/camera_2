@@ -11,83 +11,74 @@
 
   <!-- Vue-->
   <script src="https://npmcdn.com/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.min.js"></script>
   <!-- Bootstrap JS CSS-->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
- 
- <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
 
+<!--  <style>
+.bd-placeholder-img {
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+@media (min-width: 768px) {
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
+}
+    </style>
+ -->
 <!--	<script>
     	$(document).on("mobileinit", function () {
-        	$.mobile.hashListeningEnabled = true;
-        	$.mobile.pushStateEnabled = true;
+  	$.mobile.hashListeningEnabled = true;
+  	$.mobile.pushStateEnabled = true;
     	});
 	</script> -->
   
 </head>
 <body>
 <!-- Wish-- search in navbar -->
-<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-  <a class="navbar-brand" href="#">CameraSeek</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+		<a class="navbar-brand" href="#">CameraSeek</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+	    <span class="navbar-toggler-icon"></span></button>
 
-  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onChange="list_page();">Choose Borough</a>
-        <div class="dropdown-menu" aria-labelledby="dropdown01">
-          <a class="dropdown-item" href="#" v-for="item in items" v-bind:value="item['fields']['Latitude, Longitude, Zoom']">{{ item['fields']['Name'] }}</a>
-          <a class="dropdown-item" href="#">Cameras Nearby</a>
-          <a class="dropdown-item" href="#">List only</a>
-        </div>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-      </li>
-
-    </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-      <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-    </form>
-  </div>
-</nav>
+		<div class="collapse navbar-collapse" id="navbarsExampleDefault">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a></li>
+				<li class="nav-item dropdown" onChange="list_page();">
+					<a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >Choose Borough</a>
+						<li class="dropdown-menu" aria-labelledby="dropdown01">
+							<a class="dropdown-item" href="#" v-for="item in items" v-bind:value="item['fields']['Latitude, Longitude, Zoom']">{{ item['fields']['Name'] }}</a></li></li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">List</a></li>
+				<li class="nav-item">
+		  			<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Address Lookup</a></li>
+				<li class="nav-item">
+		  			<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Nearby</a></li></ul></div></nav>
+		<!--     <form class="form-inline my-2 my-lg-0">
+		<input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+		<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+		    </form> -->
+		    
 
 
-<main role="main" class="container">
-	<div class="ui-field-contain"> 
-		<select id="town" name="select-native-1" class="select-css" id="select-native-1"  onChange="list_page();">
-        			<option value="0">Choose a Borough</option>
-					<option id="loading_selection" value="0">Loading Boroughs...</option>
-					<option v-for="item in items" v-bind:value="item['fields']['Latitude, Longitude, Zoom']">{{ item['fields']['Name'] }}</option>
-    	</select>
-	</div>
+	<main role="main" class="container">
+<!-- 		<div class="ui-field-contain"> 
+			<select id="town" name="select-native-1" class="select-css" id="select-native-1"  onChange="list_page();">
+	        	<option value="0">Choose a Borough</option>
+				<option id="loading_selection" value="0">Loading Boroughs...</option>
+				<option v-for="item in items" v-bind:value="item['fields']['Latitude, Longitude, Zoom']">{{ item['fields']['Name'] }}</option>
+	    	</select>
+		</div> -->
 
 
 
@@ -96,20 +87,19 @@
 
 
 
-
-</main>
-
+		
 
 
 
 
-<div data-role="page" id="filter">
-	<div data-role="header" data-position="fixed" >
+
+<!-- <div data-role="page" id="filter">
+		<div data-role="header" data-position="fixed" >
 		<h1>Camera Finder</h1>
 		<a href="#about" class="ui-btn ui-icon-info ui-btn-icon-notext ui-corner-all ui-btn-right"  data-transition="slide"></a>
 	</div>
 	<div data-role="content" class="content">
-		<div class="ui-field-contain"> 
+			<div class="ui-field-contain"> 
 			<select id="town" name="select-native-1" class="select-css" id="select-native-1"  onChange="list_page();">
         		<option value="0">Choose a Borough</option>
 						<option id="loading_selection" value="0">Loading Boroughs...</option>
@@ -132,10 +122,10 @@
 		<a href="javascript:results_page();" data-role="button" style="background-color: #F28C0F; color: #6b533e; text-shadow: 0 0px 0 #F28C0F;">Find Cameras</a>
 
 	</div>
-</div>
+</div> -->
 
 
-
+<!-- 
 <div data-role="page" id="about">
 	<div data-role="header" data-position="fixed">
 		<h1>About</h1>
@@ -145,9 +135,9 @@
 		<p> ABOUT PAGE CONTENT
 	</div>
 </div>
+ -->
 
-
-
+<!-- 
 <div data-role="page" id="details">
 	<div data-role="header" data-position="fixed">
 		<h1>Details</h1>
@@ -157,11 +147,11 @@
 		<div id="detail" v-for="" v-if="">
 		</div>
 	</div>
-</div>
+</div> -->
 
 
 
-<div data-role="page" id="results">
+<!-- <div data-role="page" id="results">
 	<div data-role="header" data-position="fixed">
 		<h1>  Result: <i> found. click the arrow below for building details. </i></h1>
 		<a href="#filter" data-transition="slide" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-home ui-btn-icon-notext"></a>
@@ -181,10 +171,10 @@
 				</ul>
 		</div>
 		<ul id="org_geo_list" style="display:none;"></ul>
-</div>
+</div> -->
 
 
-
+<!-- 
 <div data-role="page" id="map-page">
 	<div data-role="header" data-position="fixed">
 		<h1>Results mapped</h1>
@@ -200,9 +190,9 @@
 			<div id="map" style= "height: 100%; width: 100%; position: inherit; overflow: hidden;"></div>
 		</div>
 </div>
+ -->
 
 
-<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js"></script>
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3-tyZ0UkYztbB4D4WjmoU57gSd2ykGco"></script>
@@ -351,9 +341,9 @@
 		function initMap(lat,lon,zoomin) {
 			var infobx = {lat: lat, lng: lon};
 			var map = new google.maps.Map(document.getElementById('map'), {
-		        zoom: 12,
-		        center: infobx
-		      });
+				zoom: 12,
+				center: infobx
+				});
 			i = 0;
 			$('#org_geo_list li').each(function(){
 				//alert($(this).text());
@@ -379,13 +369,13 @@
 			});
 			google.maps.event.addListener(map, 'click', function() {
 			    if (infowindow) {
-			        infowindow.close();
+					infowindow.close();
 			    }
 			});
 		}
 		function hideAllInfoWindows(map) {
-		   markers.forEach(function(marker) {
-		     marker.infowindow.close(map, marker);
+			markers.forEach(function(marker) {
+				marker.infowindow.close(map, marker);
 		  });
 		}
 		function size_map() {
@@ -400,15 +390,15 @@
 
 
 
-</body>
+	</main></body>
   <!-- Vue-->
-  <script src="https://npmcdn.com/vue/dist/vue.js"></script>
-  <!-- Bootstrap JS CSS-->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	  <script src="https://npmcdn.com/vue/dist/vue.js"></script>
+	  <!-- Bootstrap JS CSS-->
+	  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	  <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+	  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 
 </html>
